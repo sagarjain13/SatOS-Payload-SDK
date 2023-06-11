@@ -42,6 +42,10 @@ class Controller:
     def handle_log_location(self, ctx):
         loc = ctx.client.get_current_location()
         logger.info(f"Handling sequence: lat={loc.latitude}, lng={loc.longitude}, alt={loc.altitude}")
+    
+    def handle_stage_filedownload(self, ctx):
+        logger.info("Staging file for upload")
+        b = ctx.client.stage_file_download("SampleFile.txt")
 
 
 def new():
@@ -53,7 +57,8 @@ def new():
     app.mount_sequence("HelloWorld", ctl.handle_hello_world)
     app.mount_sequence("HelloFriend", ctl.handle_hello_friend)
     app.mount_sequence("LogLocation", ctl.handle_log_location)
-
+    app.mount_sequence("StageFile",ctl.handle_stage_filedownload)
+    
     return app
 
 
